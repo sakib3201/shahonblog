@@ -31,7 +31,7 @@
         Posts:     
         {% for post in site.posts %}
         
-        <li> <a href="{{ post.url }}"> {{ post.title }} </a>  ---> {{ post.datestamp }}  </li>
+        <li> <a href="{{ site.baseurl }}{{ post.url }}"> {{ post.title }} </a>  ---> {{ post.datestamp }}  </li>
         
         {% endfor %}
         
