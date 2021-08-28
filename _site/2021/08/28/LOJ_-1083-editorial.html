@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>
+            Loj-1303: Ferris Wheel
+        </title>
+      <!-- <link rel="stylesheet" href="/style.css"> -->
+    </head>
+
+    <body>
+        <nav>
+            <a href="/index.html">Home</a>
+        </nav>
+        
+        <h2 id="loj-1303-ferris-wheel">Loj-1303: Ferris Wheel</h2>
+
+<p><strong>What the problem wants :</strong> The given problem gives us two numbers <code class="language-plaintext highlighter-rouge">n</code>(number of people in the line at beginning) and <code class="language-plaintext highlighter-rouge">m</code> (number of seats in the ferris wheel) . We have to figure out the ‘total time’ it takes for all the people to ride each seat of the ferris wheel once.</p>
+
+<p>We have three rules for this operation.</p>
+
+<p>1 . They will form a queue from 1 (front) to n (back) and they want to sit alone in a seat. 
+2 . When a person gets out from one seat (he just rode in that seat), then if he has ridden in all the seats, he will leave, otherwise he will join in the back of the queue.
+3 . only one person can ride a seat each time.(no sharing)
+4 . The seats rotate in clockwise manner. After seat 1 comes 2 , then 3 … then 1 again after the ‘m’ th seat. It takes 5 sec for the seats to change.</p>
+
+<p><strong>Approach to solution :</strong> The problem can be considered a simulation problem using any linear data structure . In order to solve the problem we simply have to simulate the entire process in code.</p>
+
+<p>We can represent the queue of people using a list &amp; the seats of the ferris wheel as an array . At every step we will first decide the lowest seat or the seat which will be boarded. If the seat contains a person then we will check if he has visited all seats. If he has visited the seats simply remove him , otherwise push him back to the list. Then check for the first eligible person on the line to sit on that seat and remove him from the list. If no one in line is eligible continue the process. Update the number of lowest step afterwards and keep track of the number of times the seat changes or the ferris wheel rotates.</p>
+
+<p>The entire process will continue till everyone has sat on each of the seats.</p>
+
+<p><strong>Tip :</strong> Because we have to simulate the process step by step , it’s very helpful to modularize the code . This means breaking the code into smaller functions for each action or operation .</p>
+
+<hr />
+<h2 id="solution-code-in-c-">Solution code in C++ :</h2>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;bits/stdc++.h&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">//function to check if a person has visited all the seats in Ferris Wheel</span>
+<span class="kt">bool</span> <span class="nf">fully_visited</span><span class="p">(</span><span class="kt">int</span> <span class="n">vis</span><span class="p">[</span><span class="mi">30</span><span class="p">][</span><span class="mi">30</span><span class="p">],</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span><span class="kt">int</span> <span class="n">person</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">vis</span><span class="p">[</span><span class="n">person</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//Function for selecting The first eligible person in line to get on the ferris wheel</span>
+
+<span class="kt">int</span> <span class="nf">select_person</span><span class="p">(</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">line</span><span class="p">,</span><span class="kt">int</span> <span class="n">vis</span><span class="p">[</span><span class="mi">30</span><span class="p">][</span><span class="mi">30</span><span class="p">],</span><span class="kt">int</span> <span class="n">lowest_seat</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span> <span class="o">=</span> <span class="n">line</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">it</span><span class="o">!=</span><span class="n">line</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">vis</span><span class="p">[</span><span class="o">*</span><span class="n">it</span><span class="p">][</span><span class="n">lowest_seat</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">*</span><span class="n">it</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//A function to check if the ferris wheel is occupied (if there is someone on any of the seats)</span>
+
+<span class="kt">bool</span> <span class="nf">wheel_occupied</span><span class="p">(</span><span class="kt">int</span> <span class="n">wheel</span><span class="p">[],</span><span class="kt">int</span> <span class="n">m</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">wheel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">t</span><span class="p">,</span><span class="n">cas</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">t</span><span class="p">;</span>
+    
+    <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">lowest_seat</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">done</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="c1">// 'done' is for counting the number of people who have ridden in each seat on the ferris wheel.</span>
+        
+        <span class="c1">// 'vis' array keeps track of which seats have the people already sat at.</span>
+        <span class="kt">int</span> <span class="n">vis</span><span class="p">[</span><span class="mi">30</span><span class="p">][</span><span class="mi">30</span><span class="p">]</span><span class="o">=</span> <span class="p">{};</span>
+        
+        <span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">line</span><span class="p">;</span> <span class="c1">//represents the queue</span>
+
+        <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="n">m</span><span class="p">;</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">line</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kt">int</span> <span class="n">wheel</span><span class="p">[</span><span class="n">m</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span> <span class="p">{};</span> <span class="c1">//represents the ferris wheel </span>
+        
+        <span class="k">do</span>
+        <span class="p">{</span>
+            <span class="n">lowest_seat</span> <span class="o">=</span> <span class="p">(</span><span class="n">lowest_seat</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span> <span class="c1">// for updating the current lowest seat.</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="n">wheel</span><span class="p">[</span><span class="n">lowest_seat</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">fully_visited</span><span class="p">(</span><span class="n">vis</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">wheel</span><span class="p">[</span><span class="n">lowest_seat</span><span class="p">]))</span>
+                <span class="p">{</span>
+                    <span class="o">++</span><span class="n">done</span><span class="p">;</span>
+                    <span class="n">wheel</span><span class="p">[</span><span class="n">lowest_seat</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="n">line</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">wheel</span><span class="p">[</span><span class="n">lowest_seat</span><span class="p">]);</span>
+                    <span class="n">wheel</span><span class="p">[</span><span class="n">lowest_seat</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="kt">int</span> <span class="n">new_person</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+            <span class="n">new_person</span> <span class="o">=</span> <span class="n">select_person</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">vis</span><span class="p">,</span><span class="n">lowest_seat</span><span class="p">);</span>
+            <span class="n">line</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">new_person</span><span class="p">);</span>
+            <span class="n">wheel</span><span class="p">[</span><span class="n">lowest_seat</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_person</span><span class="p">;</span>
+            
+            <span class="k">if</span><span class="p">(</span><span class="n">new_person</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">vis</span><span class="p">[</span><span class="n">new_person</span><span class="p">][</span><span class="n">lowest_seat</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="o">++</span><span class="n">ans</span><span class="p">;</span> <span class="c1">// to track the number of times the wheel rotates.</span>
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">wheel_occupied</span><span class="p">(</span><span class="n">wheel</span><span class="p">,</span><span class="n">m</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">done</span><span class="o">&lt;</span><span class="n">n</span><span class="p">));</span> 
+
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"Case "</span><span class="o">&lt;&lt;</span><span class="n">cas</span><span class="o">++&lt;&lt;</span><span class="s">": "</span><span class="o">&lt;&lt;</span><span class="n">ans</span><span class="o">*</span><span class="mi">5</span><span class="o">&lt;&lt;</span><span class="sc">'\n'</span><span class="p">;</span> <span class="c1">// 'ans*5' because each rotation or change of position of seats takes 5 units of time.</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+<hr />
+
+        
+        <footer> Thanks for visiting </footer>
+
+    </body>
+
+</html>

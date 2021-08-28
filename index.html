@@ -1,6 +1,42 @@
 ---
-layout : posts
-title : ShahonBlogs
 ---
-<h1> ShahonBlog </h1>
-<p> Welcome to my Blog </p>
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>
+            ShahonBlog
+        </title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+
+    <body>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="https://github.com/sakib3201">about author</a>
+        </nav>
+        
+        <div id="intro">
+            Welcome to the ShahonBlog.
+        </div>
+        
+        <div id="sub-intro">
+            Hi I am sakib ahamed shahon and this is my personal blog. <br>
+            From code to poetry , tech stacks to fictions or sometimes just a bit of personal thought.. <br>
+            I have decided to write about it all. <br>
+        </div>
+
+    
+    <ul>
+        Posts:     
+        {% for post in site.posts %}
+        
+        <li> <a href="{{ post.url }}"> {{ post.title }} </a>  ---> {{ post.datestamp }}  </li>
+        
+        {% endfor %}
+        
+    </ul>
+
+    </body>
+
+</html>
