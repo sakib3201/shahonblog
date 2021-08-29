@@ -1,28 +1,19 @@
 body {
     background-color: #2e2e2eff;
-    color : darkgrey;
+    color: whitesmoke ;
     flex-wrap: wrap; 
+    font-size : 1em;
+    font-family: roboto, sans-serif;
+    padding: 20px;
  }
 nav a{
  text-align: right;
  align-content: right;   
  color : #3c949cff;
  font-family: monospace;
- text-decoration: none;
+ text-decoration: underline;
 }
-ul li {
-    color :beige;
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    text-align: center;
-}
-ul li a {
-    text-decoration:none;
-    color :goldenrod;
-    align-content: center;
-}
+
 
 #intro {
     display: flex;
@@ -39,3 +30,60 @@ ul li a {
     justify-content: center;
     text-align: center;
 }
+
+.timeline {
+    max-width: 900px;
+    margin: 50px auto;
+}
+  
+.timeline .timeline-body {
+    position: relative;
+    background-color: #2F3331;
+    margin-left: 100px;
+    border-radius: 0 8px 8px 0;
+    padding: 5px 0;
+}
+  
+.timeline .timeline-item {
+    position: relative;
+}
+  
+.timeline .timeline-item:after {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 4px solid #4298C3;
+    background-color: #2F3331;
+    position: absolute;
+    left: -16px;
+    top: 0px;
+    z-index: 9;
+}
+  
+.timeline .timeline-item .time {
+    position: absolute;
+    left: -95px;
+    top: -10px;
+    opacity: .5;
+    font-size: 13 px;
+}
+  
+.timeline .timeline-item .content {
+    color: lightslategray;
+    margin: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #555;
+}
+  
+.timeline .timeline-item .content .title a{
+    color: whitesmoke; 
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.timeline .timeline-item .content .title a:hover{
+    color : tomato;
+    cursor: pointer;
+}
+@import "fruity.css";

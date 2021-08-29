@@ -1,7 +1,6 @@
 ---
 ---
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>
@@ -21,22 +20,32 @@
         </div>
         
         <div id="sub-intro">
-            Hi I am sakib ahamed shahon and this is my personal blog. <br>
-            From code to poetry , tech stacks to fictions or sometimes just a bit of personal thought.. <br>
+            From code to poetry , tech stacks to fictions <br> 
+            Maybe a bit of personal thought.. <br>
             I have decided to write about it all. <br>
         </div>
-
-    
-    <ul>
-        Posts:     
+ 
+        <div class="timeline">
         {% for post in site.posts %}
         
-        <li> <a href="{{ site.baseurl }}{{ post.url }}"> {{ post.title }} </a>  ---> {{ post.datestamp }}  </li>
         
+            <div class="timeline-body">
+                <div class="timeline-item">
+                    <p class="time">
+                        {{ post.datestamp }}
+                    </p>
+                    <div class="content">
+                        <h2 class="title"><a href="{{ site.baseurl }}{{ post.url }}"> {{ post.title }} </a></h2>
+                        <p>
+                            {{post.about}}
+                        </p>    
+                    </div>
+                </div>
+                
+            </div>      
         {% endfor %}
-        
-    </ul>
-
+        </div>
+    
     </body>
 
 </html>

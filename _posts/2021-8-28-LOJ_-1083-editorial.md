@@ -2,6 +2,7 @@
 layout: posts
 title : "Loj-1303: Ferris Wheel"
 datestamp : "28/8/2021"
+about : "Editorial for lightoj-1303: Ferris Wheel"
 ---
 ## Loj-1303: Ferris Wheel 
 
@@ -9,10 +10,10 @@ datestamp : "28/8/2021"
 
 We have three rules for this operation.
 
-1 . They will form a queue from 1 (front) to n (back) and they want to sit alone in a seat. 
-2 . When a person gets out from one seat (he just rode in that seat), then if he has ridden in all the seats, he will leave, otherwise he will join in the back of the queue.
-3 . only one person can ride a seat each time.(no sharing)
-4 . The seats rotate in clockwise manner. After seat 1 comes 2 , then 3 ... then 1 again after the 'm' th seat. It takes 5 sec for the seats to change.
+    1. They will form a queue from 1 (front) to n (back) and they want to sit alone in a seat. 
+    2. When a person gets out from one seat (he just rode in that seat), then if he has ridden in all the seats, he will leave, otherwise he will join in the back of the queue.
+    3. only one person can ride a seat each time.(no sharing)
+    4. The seats rotate in clockwise manner. After seat 1 comes 2 , then 3 ... then 1 again after the 'm' th seat. It takes 5 sec for the seats to change.
 
 
 **Approach to solution :** The problem can be considered a simulation problem using any linear data structure . In order to solve the problem we simply have to simulate the entire process in code. 

@@ -1,13 +1,14 @@
-I"\8<h2 id="loj-1303-ferris-wheel">Loj-1303: Ferris Wheel</h2>
+I"�8<h2 id="loj-1303-ferris-wheel">Loj-1303: Ferris Wheel</h2>
 
 <p><strong>What the problem wants :</strong> The given problem gives us two numbers <code class="language-plaintext highlighter-rouge">n</code>(number of people in the line at beginning) and <code class="language-plaintext highlighter-rouge">m</code> (number of seats in the ferris wheel) . We have to figure out the ‘total time’ it takes for all the people to ride each seat of the ferris wheel once.</p>
 
 <p>We have three rules for this operation.</p>
 
-<p>1 . They will form a queue from 1 (front) to n (back) and they want to sit alone in a seat. 
-2 . When a person gets out from one seat (he just rode in that seat), then if he has ridden in all the seats, he will leave, otherwise he will join in the back of the queue.
-3 . only one person can ride a seat each time.(no sharing)
-4 . The seats rotate in clockwise manner. After seat 1 comes 2 , then 3 … then 1 again after the ‘m’ th seat. It takes 5 sec for the seats to change.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. They will form a queue from 1 (front) to n (back) and they want to sit alone in a seat. 
+2. When a person gets out from one seat (he just rode in that seat), then if he has ridden in all the seats, he will leave, otherwise he will join in the back of the queue.
+3. only one person can ride a seat each time.(no sharing)
+4. The seats rotate in clockwise manner. After seat 1 comes 2 , then 3 ... then 1 again after the 'm' th seat. It takes 5 sec for the seats to change.
+</code></pre></div></div>
 
 <p><strong>Approach to solution :</strong> The problem can be considered a simulation problem using any linear data structure . In order to solve the problem we simply have to simulate the entire process in code.</p>
 
