@@ -36,6 +36,11 @@ nav a{
     font-family: cursive;
 }
 
+content {
+    margin: 50px;
+    padding: 50px;
+}
+
 /* For styling the timeline*/
 .timeline {
     max-width: 80%;
