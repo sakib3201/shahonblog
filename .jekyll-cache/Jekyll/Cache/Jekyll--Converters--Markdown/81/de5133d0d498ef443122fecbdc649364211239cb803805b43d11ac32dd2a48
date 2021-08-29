@@ -1,6 +1,6 @@
-I"�8<h2 id="loj-1303-ferris-wheel">Loj-1303: Ferris Wheel</h2>
+I"�8<h2 id="loj-1303-ferris-wheel">Loj-1303: Ferris Wheel</h2>
 
-<p><strong>What the problem wants :</strong> The given problem gives us two numbers <code class="language-plaintext highlighter-rouge">n</code>(number of people in the line at beginning) and <code class="language-plaintext highlighter-rouge">m</code> (number of seats in the ferris wheel) . We have to figure out the ‘total time’ it takes for all the people to ride each seat of the ferris wheel once.</p>
+<p><strong>What the problem wants :</strong> The given problem gives us two numbers <code class="language-plaintext highlighter-rouge">n</code> (number of people in the line at beginning) and <code class="language-plaintext highlighter-rouge">m</code> (number of seats in the ferris wheel) . We have to figure out the ‘total time’ it takes for all the people to ride each seat of the ferris wheel once.</p>
 
 <p>We have three rules for this operation.</p>
 

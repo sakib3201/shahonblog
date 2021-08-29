@@ -6,7 +6,7 @@ about : "Editorial for lightoj-1303: Ferris Wheel"
 ---
 ## Loj-1303: Ferris Wheel 
 
-**What the problem wants :** The given problem gives us two numbers `n`(number of people in the line at beginning) and `m` (number of seats in the ferris wheel) . We have to figure out the 'total time' it takes for all the people to ride each seat of the ferris wheel once.
+**What the problem wants :** The given problem gives us two numbers `n` (number of people in the line at beginning) and `m` (number of seats in the ferris wheel) . We have to figure out the 'total time' it takes for all the people to ride each seat of the ferris wheel once.
 
 We have three rules for this operation.
 
