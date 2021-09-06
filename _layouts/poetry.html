@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>
+            {{page.title}}
+        </title>
+        
+        <link rel="stylesheet" type="text/css" href="{{site.baseurl}}/css/poetry.css" />
+        
+        <!--- for importing tangerine font -->    
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+
+        <!--- for importing cinzel decorative font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
+    
+    </head<>
+
+    <body>
+
+        <nav>
+            
+            <a href="{{ site.baseurl }}/index.html" > Home </a>
+            
+        </nav>
+               
+        {{content}}
+
+    </body>
+
+</html>

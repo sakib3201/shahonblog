@@ -1,0 +1,43 @@
+body {
+    background-color: #2e2e2eff;
+    color: whitesmoke ;
+    flex-wrap: wrap; 
+    font-size : 1em;
+    font-family: roboto, sans-serif;
+    padding: 20px;
+ }
+nav a{
+ text-align: right;
+ align-content: right;   
+ color : #3c949cff;
+ font-family: monospace;
+ text-decoration: underline;
+ font-size: 1.2em;
+}
+
+h1 {
+    display: flex;
+    font-size: 3em  ;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color : lightgoldenrodyellow;
+    margin: 10px;
+    font-family: 'Cinzel Decorative', cursive;
+    font-weight : 400;
+}
+
+.poetry_body {
+    display: flex;
+    justify-content: center;
+    font-size: 1.2em;
+    font-family: 'Cinzel Decorative','Tangerine', sans-serif;
+}
+
+.author {
+    display: flex;
+    justify-content: center;
+    font-size: 2em;
+    font-family: 'Tangerine' ,monospace;
+}
+
