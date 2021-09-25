@@ -2,133 +2,153 @@
 layout: posts
 title : "Loj-1303: Ferris Wheel"
 datestamp : "28/8/2021"
-about : "Editorial for lightoj-1303: Ferris Wheel"
+about : "Editorial for lightoj-1083: Histogram"
 ---
 
-## Loj-1303: Ferris Wheel 
+## LOJ - 1083: Histogram
 
 ---
 
-**What the problem wants :** The given problem gives us two numbers `n` (number of people in the line at beginning) and `m` (number of seats in the ferris wheel) . We have to figure out the 'total time' it takes for all the people to ride each seat of the ferris wheel once.
+**What The Problem Wants :** The problem wants you to find the area of the largest rectangle in a [histogram](https://en.wikipedia.org/wiki/Histogram) . These rectangles have to be contained within the histogram and might cover multiple bars partially.
 
-We have three rules for this operation.
+**Approach to the Solution :** There is two important observation for this problem:
 
- 1. They will form a queue from 1 (front) to n (back) and they want to sit alone in a seat. 
- 2. When a person gets out from one seat (he just rode in that seat), then if he has ridden in all the seats, he will leave, otherwise he will join in the back of the queue.
- 3. only one person can ride a seat each time.(no sharing)
- 4. The seats rotate in clockwise manner. After seat 1 comes 2 , then 3 ... then 1 again after the 'm' th seat. It takes 5 sec for the seats to change.
+1. Any rectangle in the histogram will have a height (might be zero)
+2. To find the rectangle with the largest area we have to calculate the area of each rectangle which has height `h` . where, `h` is the height of an individual bar in the rectangle. Because , the largest rectangle will at least include one entire bar of the histogram.
 
+In order to find the area of a bar with `h` height we have to find how many bars on both sides have a height greater than its own.Because , then we can stretch the rectangle including part of the other bars with height greater than `h`.This can be considered as its range or width. 
 
-**Approach to solution :** The problem can be considered a simulation problem using any linear data structure . In order to solve the problem we simply have to simulate the entire process in code. 
+In order to find this range we can keep traversing to each side until we find a bar with a height less than the current bars height for each bar. 
 
-We can represent the queue of people using a list & the seats of the ferris wheel as an array . At every step we will first decide the lowest seat or the seat which will be boarded. If the seat contains a person then we will check if he has visited all seats. If he has visited the seats simply remove him , otherwise push him back to the list. Then check for the first eligible person on the line to sit on that seat and remove him from the list. If no one in line is eligible continue the process. Update the number of lowest step afterwards and keep track of the number of times the seat changes or the ferris wheel rotates.
+This brute force method of checking `n` bars of histogram has a time complexity of **O(n<sup>2</sup>)** which is too slow.
 
-The entire process will continue till everyone has sat on each of the seats.
+In order to improve the time complexity we can use a **stack** to keep track of elements in an ordered way.  
 
-**Tip :** Because we have to simulate the process step by step , it's very helpful to modularize the code . This means breaking the code into smaller functions for each action or operation .
+In order to find the range to the left we will follow these below algorithmic steps for each index starting from `0 to n-1`:
 
----
-## Solution code in C++ :
+1. while height of bar the bar with index at the top of the stack is less than the height of bar with current index remove the top element of stack.
+2. If the stack is empty the range to the left for current index is 0, else its equal to the top element of stack + 1 . 
+
+let's visualize this process for the input:
+```
+1
+6
+2 1 4 5 1 7 3
+```
+**Visualization :**
+
+![example](animation2.gif)
+
+In order to find the range to the right we will follow similar algorithmic steps. However we move from `n-1 to 0`.
+
+Once we have left and right index we can calculate ,
+* range = right index - left index + 1.
+* Area = range * height .
+
+Afterwards, by calculating and comparing the area for each bar we can easily find the area of the largest rectangle in the histogram.
+
+**_NOTE :_** It's highly recommended to watch the the first video provided in the resources section below. This is a very classic problem and to understand it fully, it's important to see the step by step processes visually. Also read the last blog in the resources section to know a slightly different coding process.
+
+**Resources :**
+
+1. [Video Tutorial for finding the largest rectangle in a histogram](https://youtu.be/vcv3REtIvEo) 
+2. [Stack STL details](https://www.geeksforgeeks.org/stack-in-cpp-stl/)
+3. [Stack Basics (video intro)](https://youtu.be/L3ud3rXpIxA)
+4. [Stack (video on implementation)](https://youtu.be/RAMqDLI6_1c)
+5. [Slightly different way to code the solution](https://www.geeksforgeeks.org/largest-rectangle-under-histogram/)
+
+### Solution Code in C++ :
+
 ```cpp
 #include <bits/stdc++.h>
+
 using namespace std;
-
-//function to check if a person has visited all the seats in Ferris Wheel
-bool fully_visited(int vis[30][30],int m,int person)
-{
-    for(int i=0; i<m; i++)
-    {
-        if(vis[person][i]==0)
-            return false;
-    }
-    return true;
-}
-
-//Function for selecting The first eligible person in line to get on the ferris wheel
-
-int select_person(list<int> line,int vis[30][30],int lowest_seat)
-{
-    for(list<int>::iterator it = line.begin(); it!=line.end(); it++)
-    {
-        if(vis[*it][lowest_seat]==0)
-            return *it;
-    }
-    return 0;
-}
-
-//A function to check if the ferris wheel is occupied (if there is someone on any of the seats)
-
-bool wheel_occupied(int wheel[],int m)
-{
-    for(int i=0; i<m; i++)
-    {
-        if(wheel[i]>0)
-            return true;
-    }
-    return false;
-}
 
 int main()
 {
-    int t,cas=1;
+    int t,cas=0;
     cin>>t;
-    
+
     while(t--)
     {
-        int n,m,ans=0,lowest_seat=0,done=0; // 'done' is for counting the number of people who have ridden in each seat on the ferris wheel.
-        
-        // 'vis' array keeps track of which seats have the people already sat at.
-        int vis[30][30]= {};
-        
-        list<int> line; //represents the queue
+        int n;
+        cin>>n;
 
-        cin>>n>>m;
+        long long int histogram_height[n]= {};
 
-        for(int i=1; i<=n; i++)
+        for(int i=0; i<n; i++)
         {
-            line.push_back(i);
+            cin>>histogram_height[i];
         }
 
-        int wheel[m+2]= {}; //represents the ferris wheel 
-        
-        do
-        {
-            lowest_seat = (lowest_seat + 1) % m; // for updating the current lowest seat.
+        stack<long long int> index;
+        long long int left[n]= {},right[n]= {};
+        long long int max_area=0;
 
-            if(wheel[lowest_seat]!=0)
+        //loop for finding the range to the left for each bar in histogram, or how far to the left can each bar be extended .
+        for(int i=0; i<n; i++)
+        {
+            //loop for emptying the stack and always keeping it in increasing order    
+            while( !index.empty())
             {
-                if(fully_visited(vis,m,wheel[lowest_seat]))
-                {
-                    ++done;
-                    wheel[lowest_seat] = 0;
-                }
+                if(histogram_height[index.top()] >= histogram_height[i])
+                    index.pop();
                 else
-                {
-                    line.push_back(wheel[lowest_seat]);
-                    wheel[lowest_seat] = 0;
-                }
+                    break;
             }
 
-            int new_person = 0;
-
-            new_person = select_person(line,vis,lowest_seat);
-            line.remove(new_person);
-            wheel[lowest_seat] = new_person;
-            
-            if(new_person!=0)
+            if(index.empty())
             {
-                vis[new_person][lowest_seat] = 1;
+                left[i] = 0;
+            }
+            else
+            {
+                left[i] = index.top()+1;
             }
 
-            ++ans; // to track the number of times the wheel rotates.
+            index.push(i);
         }
-        while(wheel_occupied(wheel,m) || (done<n)); 
 
-        cout<<"Case "<<cas++<<": "<<ans*5<<'\n'; // 'ans*5' because each rotation or change of position of seats takes 5 units of time.
+        //for emptying the stack before using it to find the range to right.
+        while(!index.empty())
+        {
+            index.pop();
+        }
+
+        //loop for finding the range to right for each bar in histogram
+        for(int i=n-1 ; i>=0 ; i--)
+        {
+
+            while( !index.empty())
+            {
+                if(histogram_height[index.top()] >= histogram_height[i])
+                    index.pop();
+                else
+                    break;
+            }
+
+            if(index.empty())
+            {
+                right[i] = n-1;
+            }
+            else
+            {
+                right[i] = index.top()-1;
+            }
+
+            index.push(i);
+        }
+
+        //loop for calculating the maximum area each bar can cover after extending both ways.
+        for(int i=0;i<n;i++)
+            {
+                long long int current_area =(right[i]-left[i]+1)*histogram_height[i];
+
+                max_area = max(max_area,current_area);
+            }
+
+        cout<<"Case "<<++cas<<": "<<max_area<<'\n';
     }
-
     return 0;
 }
-
 ```
----
