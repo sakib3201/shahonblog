@@ -1,6 +1,6 @@
 ---
 layout: posts
-title : "Loj-1303: Ferris Wheel"
+title : "Loj-1083: Histogram"
 datestamp : "28/8/2021"
 about : "Editorial for lightoj-1083: Histogram"
 ---
