@@ -1,27 +1,4 @@
-<!DOCTYPE html>
-
-<html lang="en">
-    <head>
-        <title>
-            Loj-1083: Histogram
-        </title>
-        <link rel="stylesheet" type="text/css" href="/style.css" />
-        <link rel="stylesheet" type="text/css" href="/fruity.css" />
-        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Merriweather&display=swap" rel="stylesheet">
-    </head<>
-
-    <body>
-
-        <nav>
-            
-            <a href="/index.html" > Home </a>
-            
-        </nav>
-               
-        <h2 id="loj---1083-histogram">LOJ - 1083: Histogram</h2>
+I"æ7<h2 id="loj---1083-histogram">LOJ - 1083: Histogram</h2>
 
 <hr />
 
@@ -174,10 +151,4 @@
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
-
-
-        <footer> Thanks for visiting </footer>
-
-    </body>
-
-</html>
+:ET
