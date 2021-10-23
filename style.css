@@ -14,8 +14,12 @@ nav a{
  text-decoration: underline;
  font-size: 1.2em;
 }
-
-
+a{
+    color: silver;
+}
+a:hover{
+    color: tomato;
+}
 #intro {
     display: flex;
     font-size: 5em  ;
@@ -75,7 +79,7 @@ content {
 .timeline .timeline-item .time {
     position: absolute;
     left: -95px;
-    top: -10px;
+    top: -15px;
     opacity: .5;
     font-size: 13 px;
 }
@@ -121,7 +125,7 @@ content {
     }
     .timeline .timeline-item .time {
         position: absolute;
-        left: 0px;
+        left: 10px;
         top: -35px;
         opacity: .5;
         font-size: 9 px;

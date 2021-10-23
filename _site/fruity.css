@@ -1,5 +1,5 @@
-.language-plaintext {background-color: #404040 }
-.highlight pre { background-color: #404040 }
+.language-plaintext {background-color: #404040;font-size: 1.25em;}
+.highlight pre { background-color: #404040 ; font-size: 1.25em;}
 .highlight .hll { background-color: #404040 }
 .highlight .c { color: #999999; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
